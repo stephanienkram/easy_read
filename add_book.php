@@ -1,0 +1,5 @@
+<?php include('header.php'); ?>
+
+<h3>Add Book</h3><?phpif(isset($_POST['submitBook'])) {$title = $_POST['title'];$author = $_POST['author'];$year = $_POST['year'];$numChapters = $_POST['chapters'];$q = 'SELECT MAX(ord) as ord FROM books';$ordA = mysql_fetch_array(mysql_query($q));$order = (int) $ordA['ord'] + 1;$q = sprintf("INSERT INTO books(author, title, year, ord, num_chapters, complete)VALUES ('%s', '%s', '%s', '%s', %s, %s)", $author, $title, $year, $order, $numChapters, 0);mysql_query($q);echo "inserted";}?>
+
+<form action='add_book.php' method='post'><dl><dt>Title (required)</dt><dd><input type='text' name='title'></dd><dt>Author</dt><dd><input type='text' name='author'></dd><dt>Year</dt><dd><input type='text' name='year'></dd><dt>Number of Chapters (required)</dt><dd><input type='text' name='chapters'></dd></dl><input type='submit' name='submitBook' value='Add Book'></form>
